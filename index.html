@@ -11,7 +11,6 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway%7CRighteous" rel="stylesheet">
 
     <link rel="stylesheet" href="assets/css/style.css/style.css">
-    <title>Document</title>
 </head>
 
 <body>
@@ -19,18 +18,17 @@
         <img class="logo" src="assets/images/logo.png" alt="logo"> Love Maths
     </h1>
 
-    <div class="game-area">
-        <div class="controls-area">
-            <button class="btn btn--big btn--green">
+    <div class="button-container">
+            <button class="btn btn--big btn--green" data-type="addition">
                 <i class="fas fa-plus"></i>
             </button>
-            <button class="btn btn--big btn--blue">
+            <button class="btn btn--big btn--blue" data-type="subtract">
                 <i class="fas fa-minus"></i>
             </button>
-            <button class="btn btn--big btn--orange">
+            <button class="btn btn--big btn--orange" data-type="multiply">
                 <i class="fas fa-times"></i>
             </button>
-            <button class="btn btn--big btn--red">
+            <button class="btn btn--big btn--red" data-type="divide">
                 <i class="fas fa-divide"></i>
             </button>
         </div>
@@ -42,8 +40,6 @@
             <p class="answer-message">Enter Answer:</p>
             <input id="answer-box" type="number">
         </div>
-        <button class="btn btn--gray">Submit Answer</button>
-    </div>
 
     <div class="score-area">
         <p class="scores">Correct Answers <span id="score">0</span></p>
