@@ -12,16 +12,29 @@ let buttons = document.getElementByTagName("button");
             }
         });
     }
+
+    document.getElementById('answer-box').addEventListener('keydown', function (event) {
+        if (event.key === "Enter") {
+            checkAnswer();
+        }
+    });
 runGame("addition");
 });
 
-function runGame () {
+function runGame (gameType) {
+
+    document.getElementById('answer-box').value = "";
+    document.getElementById('answer-box').focus();
     // Generate two random numbers
     num1 = Math.floor(Math.random() * 25) + 1;
     num2 = Math.floor(Math.random() * 25) + 1;
     // Display the numbers in the HTML
     if gametype === "addition" {
-        displayAdditionQuestion();
+        displayAdditionQuestion(num1, num2);
+    } else if (gameType === "multiply") {
+        displayMultiplyQuestion(num1, num2);
+    } else if (gameType === "subtract") {
+        displaySubtractQuestion(num1, num2);
     } else {
         alert("unknown gametype: ${gametype}");
         throw `unknown gametype: ${gametype}. Aborting!`;
@@ -41,10 +54,10 @@ function checkAnswer () {
     // Check if the answer is correct
     if (isCorrect) {
         alert("Hey! You got it right! :D");
-        // If the answer is correct, display a message
+        IncrementScore();
     } else {
         alert (`Awwww....you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}`);
-        // If the answer is incorrect, display a message
+        IncrementWrongAnswer();
     }
 
     runGame(calculatedAnswer[1]);
@@ -58,6 +71,8 @@ function calculateCorrectAnswer () {
 
     if(operator === "+") {
         return [operand1 + operand2, "addition"];
+    } else if (operator === "x") {
+        return [operand1 * operand2, "multiply"];
     } else {
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}. Aborting!`;
@@ -65,8 +80,9 @@ function calculateCorrectAnswer () {
 }
 
 function IncrementScore () {
-    // Get the current score
-    score = parseInt(document.getElementById('score').innerHTML);
+    
+    let oldScore = parseInt(document.getElementById('score').innerText);
+    document.getElementById('score').innerText = ++oldscore;
     // Increment the score
     score = score + 1;
     // Display the new score
@@ -74,6 +90,8 @@ function IncrementScore () {
 }
 
 function IncrementWrongAnswer () {  
+    let oldScore = parseInt(document.getElementById('incorrect').innerText);
+    document.getElementById('incorrect').innerText = ++oldscore;
     // Get the current score
     score = parseInt(document.getElementById('score').innerHTML);
     // Increment the score
@@ -84,8 +102,7 @@ function IncrementWrongAnswer () {
 
 function displayAdditionQuestion (operand1, operand2) {
     // Generate two random numbers
-    num1 = Math.floor(Math.random() * 10);
-    num2 = Math.floor(Math.random() * 10);
+
     // Display the numbers in the HTML
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
@@ -94,13 +111,17 @@ function displayAdditionQuestion (operand1, operand2) {
     correctAnswer = num1 + num2;
 }
 
-function displaySubtractQuestion () {
-    // Generate two random numbers
-    num1 = Math.floor(Math.random() * 10);
-    num2 = Math.floor(Math.random() * 10);
+function displaySubtractQuestion (operand1, operand2) {
+    document.getElementById("operand1").textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById("operand2").textContent = operand1 > operand2 ? operand2 : operand1;
+    document.getElementById('operator').textContent= "-";
+}
+
+funtion displayMultiplyQuestion (operand1, operand2) {
     // Display the numbers in the HTML
-    document.getElementById('num1').innerHTML = num1;
-    document.getElementById('num2').innerHTML = num2;
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "x";
     // Calculate the correct answer
-    correctAnswer = num1 - num2;
+    correctAnswer = num1 * num2;
 }
